@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Coral+Pixels&family=Sixtyfour&display=swap"
+    rel="stylesheet">
+  <title>Abecedário</title>
+  <style>
+    /* Reset de margens e configuração global */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body,
+    html {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+
+    /* CONTAINER PRINCIPAL (GRID 2x2)
+      Cria os 4 quadrantes divididos por linhas pretas de 1px.
+    */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      grid-template-rows: 1fr 2fr;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000000;
+      gap: 1px;
+    }
+
+    /* Estilo base de todos os quadrantes */
+    .quadrant {
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    #quadrant-3 {
+      width: 100%;
+      height: 100%;
+      background-image: url(images/kidd.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+
+    #quadrant-1,
+    #quadrant-2 {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Limita o tamanho máximo e centraliza as imagens dos Quadrantes 1 e 2 */
+    #quadrant-1 img,
+    #quadrant-2 img {
+      max-width: 66%;
+      max-height: 75%;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      align-self: center;
+    }
+
+    /* QUADRANTE 4: Círculo centralizado com as 26 letras */
+    .wheel-container {
+      position: relative;
+      bottom: 23em;
+      left: 29%;
+      width: 40%;
+      height: 40%;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #telefone {
+      position: relative;
+      left: 25rem;
+      top: 5rem;
+    }
+
+    /* Estilo individual para cada botão de letra */
+    .letter-node {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-image: url(images/botao_telefone.png);
+      background-size: cover;
+      color: black;
+      display: flex;
+      font-family: "Coral Pixels", serif;
+      font-weight: 400;
+      font-style: normal;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .letter-node.active {
+      background-image: url(images/botao_telefone_apertado.png);
+    }
+
+    a {
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grid-container">
+    <div class="quadrant" id="quadrant-1"></div>
+    <div class="quadrant" id="quadrant-2"></div>
+    <a href="possibilidade.html">
+      <div class="quadrant" id="quadrant-3"></div>
+    </a>
+    <div class="quadrant" id="quadrant-4">
+      <img src="images/telefone1.png" alt="" id="telefone">
+      <div class="wheel-container" id="wheel"></div>
+    </div>
+  </div>
+
+  <script>
+    const ALFABETO_DATA = {
+      'A': {ventilador: 'images/alfabeto/letters/a.png', placa: 'images/alfabeto/gifs/aq.gif', som: 'sounds/alfabeto/a.mp3'},
+      'B': {ventilador: 'images/alfabeto/letters/b.png', placa: 'images/alfabeto/gifs/bd.gif', som: 'sounds/alfabeto/b.mp3'},
+      'C': {ventilador: 'images/alfabeto/letters/c.png', placa: 'images/alfabeto/gifs/ctz.gif', som: 'sounds/alfabeto/c.mp3'},
+      'D': {ventilador: 'images/alfabeto/letters/d.png', placa: 'images/alfabeto/gifs/dnd.gif', som: 'sounds/alfabeto/d.mp3'},
+      'E': {ventilador: 'images/alfabeto/letters/e.png', placa: 'images/alfabeto/gifs/ent.gif', som: 'sounds/alfabeto/e.mp3'},
+      'F': {ventilador: 'images/alfabeto/letters/f.png', placa: 'images/alfabeto/gifs/flw.gif', som: 'sounds/alfabeto/f.mp3'},
+      'G': {ventilador: 'images/alfabeto/letters/g.png', placa: 'images/alfabeto/gifs/gnt.gif', som: 'sounds/alfabeto/g.mp3'},
+      'H': {ventilador: 'images/alfabeto/letters/h.png', placa: 'images/alfabeto/gifs/hj.gif', som: 'sounds/alfabeto/h.mp3'},
+      'I': {ventilador: 'images/alfabeto/letters/i.png', placa: 'images/alfabeto/gifs/ib.gif', som: 'sounds/alfabeto/i.mp3'},
+      'J': {ventilador: 'images/alfabeto/letters/j.png', placa: 'images/alfabeto/gifs/jss.gif', som: 'sounds/alfabeto/j.mp3'},
+      'K': {ventilador: 'images/alfabeto/letters/k.png', placa: 'images/alfabeto/gifs/kd.gif', som: 'sounds/alfabeto/k.mp3'},
+      'L': {ventilador: 'images/alfabeto/letters/l.png', placa: 'images/alfabeto/gifs/lgl.gif', som: 'sounds/alfabeto/l.mp3'},
+      'M': {ventilador: 'images/alfabeto/letters/m.png', placa: 'images/alfabeto/gifs/mn.gif', som: 'sounds/alfabeto/m.mp3'},
+      'N': {ventilador: 'images/alfabeto/letters/n.png', placa: 'images/alfabeto/gifs/nn.gif', som: 'sounds/alfabeto/n.mp3'},
+      'O': {ventilador: 'images/alfabeto/letters/o.png', placa: 'images/alfabeto/gifs/obg.gif', som: 'sounds/alfabeto/o.mp3'},
+      'P': {ventilador: 'images/alfabeto/letters/p.png', placa: 'images/alfabeto/gifs/pfv.gif', som: 'sounds/alfabeto/p.mp3'},
+      'Q': {ventilador: 'images/alfabeto/letters/q.png', placa: 'images/alfabeto/gifs/qm.gif', som: 'sounds/alfabeto/q.mp3'},
+      'R': {ventilador: 'images/alfabeto/letters/r.png', placa: 'images/alfabeto/gifs/rs.gif', som: 'sounds/alfabeto/r.mp3'},
+      'S': {ventilador: 'images/alfabeto/letters/s.png', placa: 'images/alfabeto/gifs/ss.gif', som: 'sounds/alfabeto/s.mp3'},
+      'T': {ventilador: 'images/alfabeto/letters/t.png', placa: 'images/alfabeto/gifs/tmj.gif', som: 'sounds/alfabeto/t.mp3'},
+      'U': {ventilador: 'images/alfabeto/letters/u.png', placa: 'images/alfabeto/gifs/uwu.gif', som: 'sounds/alfabeto/u.mp3'},
+      'V': {ventilador: 'images/alfabeto/letters/v.png', placa: 'images/alfabeto/gifs/vc.gif', som: 'sounds/alfabeto/v.mp3'},
+      'W': {ventilador: 'images/alfabeto/letters/w.png', placa: 'images/alfabeto/gifs/www.gif', som: 'sounds/alfabeto/w.mp3'},
+      'X': {ventilador: 'images/alfabeto/letters/x.png', placa: 'images/alfabeto/gifs/xp.gif', som: 'sounds/alfabeto/x.mp3'},
+      'Y': {ventilador: 'images/alfabeto/letters/y.png', placa: 'images/alfabeto/gifs/yt.gif', som: 'sounds/alfabeto/y.mp3'},
+      'Z': {ventilador: 'images/alfabeto/letters/z.png', placa: 'images/alfabeto/gifs/zzz.gif', som: 'sounds/alfabeto/z.mp3'}
+    };
+
+    const q1 = document.getElementById('quadrant-1');
+    const q2 = document.getElementById('quadrant-2');
+    const q3 = document.getElementById('quadrant-3');
+    const wheel = document.getElementById('wheel');
+
+    let currentAudio = null;
+    let q3Timeout = null;
+
+    function renderAlphabetCircle() {
+      const letters = Object.keys(ALFABETO_DATA);
+      const total = letters.length;
+      const radius = wheel.clientWidth / 2 - 220;
+
+      letters.forEach((letter, index) => {
+        const angle = (index / total) * (2 * Math.PI) - (Math.PI / 2);
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        const node = document.createElement('div');
+        node.className = 'letter-node';
+        node.textContent = letter;
+
+        node.style.left = `calc(50% + ${x}px - 18px)`;
+        node.style.top = `calc(50% + ${y}px - 18px)`;
+
+        node.addEventListener('click', () => handleLetterClick(letter, node));
+
+        wheel.appendChild(node);
+      });
+    }
+
+    function handleLetterClick(letter, nodeElement) {
+      const data = ALFABETO_DATA[letter];
+
+      if (!data) return;
+
+      document.querySelectorAll('.letter-node').forEach(n => n.classList.remove('active'));
+      nodeElement.classList.add('active');
+
+      q1.innerHTML = `<img src="${data.ventilador}" alt="Ventilador ${letter}">`;
+      q2.innerHTML = `<img src="${data.placa}" alt="Placa ${letter}">`;
+
+      // Troca temporária da imagem do Quadrante 3
+      if (q3Timeout) clearTimeout(q3Timeout);
+      q3.style.backgroundImage = "url('images/kid_open.jpg')"; // Insira a rota da imagem temporária
+
+      q3Timeout = setTimeout(() => {
+        q3.style.backgroundImage = "url('images/kidd.jpg')";
+      }, 1000);
+
+      if (currentAudio) {
+        currentAudio.pause();
+      }
+      currentAudio = new Audio(data.som);
+      currentAudio.play().catch(error => {
+        console.warn('Ação de áudio bloqueada ou falha ao carregar:', error);
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      wheel.innerHTML = '';
+      renderAlphabetCircle();
+    });
+
+    renderAlphabetCircle();
+  </script>
+</body>
+
+</html>

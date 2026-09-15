@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primeiro amor</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(images/noite.gif);
+        }
+
+        .roda {
+            position: relative;
+            width: 900px;
+            height: 900px;
+        }
+
+
+        #world,
+        #folder {
+            width: 140px;
+        }
+
+        #page {
+            width: 120px;
+            position: fixed;
+            top: calc(50% - 111px);
+            left: calc(50% - 60px);
+        }
+
+        #world {
+            position: absolute;
+            left: 1400px;
+            top: calc(50% - 60px);
+        }
+
+        #folder {
+            position: absolute;
+            top: calc(50% - 56px);
+            left: 70px;
+        }
+
+
+        .circulo {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: calc(50% - 75px);
+            left: calc(50% - 75px);
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
+
+            /* Animação com duração de 6s rodando infinitamente */
+            animation: orbitar 18s linear infinite;
+        }
+
+        .c1 {
+            background-image: url(images/roda/cel-old-1.png);
+            background-size: cover;
+            animation-delay: 0s;
+        }
+
+        .c2 {
+            background-image: url(images/roda/cel-old-2.png);
+            background-size: cover;
+            animation-delay: -1.8s;
+        }
+
+        .c3 {
+            background-image: url(images/roda/cel-old-3.png);
+            background-size: cover;
+            animation-delay: -3.6s;
+        }
+
+        .c4 {
+            background-image: url(images/roda/cel-old-4.png);
+            background-size: cover;
+            animation-delay: -5.4s;
+        }
+
+        .c5 {
+            background-image: url(images/roda/cel-old-5.png);
+            background-size: cover;
+            animation-delay: -7.2s;
+        }
+
+        .c6 {
+            background-image: url(images/roda/cel-old-6.png);
+            background-size: cover;
+            animation-delay: -9s;
+        }
+
+        .c7 {
+            background-image: url(images/roda/cel-old-7.png);
+            background-size: cover;
+            animation-delay: -10.8s;
+        }
+
+        .c8 {
+            background-image: url(images/roda/cel-old-8.png);
+            background-size: cover;
+            animation-delay: -12.6s;
+        }
+
+        .c9 {
+            background-image: url(images/roda/cel-old-9.png);
+            background-size: cover;
+            animation-delay: -14.4s;
+        }
+
+        .c0 {
+            background-image: url(images/roda/cel-old-10.png);
+            background-size: cover;
+            animation-delay: -16.2s;
+        }
+
+        .teste {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            max-width: 1900px;
+            background-color: #018184;
+            overflow: auto;
+            overflow-y: hidden;
+            top: calc(50% - 150px);
+            left: calc(50% - 150px);
+            border: 5px solid #c0c0c0;
+            box-shadow: 2px 2px 0px #000000, 2px 2px 0px #dfdfdf;
+        }
+
+        @keyframes orbitar {
+            from {
+                transform: rotate(0deg) translateY(-450px) rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg) translateY(-450px) rotate(-360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="roda">
+        <div class="circulo c1" onclick="changes(this)"></div>
+        <div class="circulo c2" onclick="changes(this)"></div>
+        <div class="circulo c3" onclick="changes(this)"></div>
+        <div class="circulo c4" onclick="changes(this)"></div>
+        <div class="circulo c5" onclick="changes(this)"></div>
+        <div class="circulo c6" onclick="changes(this)"></div>
+        <div class="circulo c7" onclick="changes(this)"></div>
+        <div class="circulo c8" onclick="changes(this)"></div>
+        <div class="circulo c9" onclick="changes(this)"></div>
+        <div class="circulo c0" onclick="changes(this)"></div>
+    </div>
+
+    <audio src="sounds/xote.mpeg" loop></audio>
+
+    <div class="teste">
+        <!-- <img src="images/fondo.png" alt="" style="height: 400px; width:1600px;"> -->
+        <img src="images/folder.png" alt="" id="folder">
+        <img src="images/page.png" alt="" id="page">
+        <a href="tres-por-quatro-na-dezesseis-por-nove.html"> <img src="images/world.gif" alt="" id="world">
+        </a>
+    </div>
+
+    <script>
+
+        const audio = document.querySelector('audio');
+        audio.volume = 0.5;
+
+        const imagens = [
+            'images/roda/cel-novo-1.png',
+            'images/roda/cel-novo-2.png',
+            'images/roda/cel-novo-3.png',
+            'images/roda/cel-novo-4.png',
+            'images/roda/cel-novo-5.png',
+            'images/roda/cel-novo-6.png',
+            'images/roda/cel-novo-7.png',
+            'images/roda/cel-novo-8.png',
+            'images/roda/cel-novo-9.png',
+            'images/roda/cel-novo-10.png'
+        ]
+
+        const sons = [
+            'sounds/bark.mp3',
+            'sounds/butterfly.mp3',
+            'sounds/hbu.mp3',
+            'sounds/ring.mp3'
+        ]
+
+        window.addEventListener('click', () => {
+            // Toca o áudio
+            audio.play().catch(error => {
+                console.log("O navegador bloqueou o áudio inicialmente:", error);
+            });
+        }, {once: true}); // O '{ once: true }' garante que o som só seja ativado no PRIMEIRO clique
+
+        function changes(elementoClicado) {
+            const value = Math.floor(Math.random() * imagens.length);
+            const aValue = Math.floor(Math.random() * sons.length);
+
+            // Instancia o novo efeito sonoro com 'A' maiúsculo
+            const efeitoSonoro = new Audio(sons[aValue]);
+            efeitoSonoro.play();
+
+            elementoClicado.style.backgroundImage = `url(${imagens[value]})`;
+        }
+    </script>
+</body>
+
+</html>

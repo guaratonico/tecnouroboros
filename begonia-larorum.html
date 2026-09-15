@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Begonia-larorum</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(images/tt1.jpg);
+        }
+
+        div {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        button {
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        a {
+            display: block;
+            width: 700px;
+            height: 700px;
+            background-image: url(images/tt1.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Faz com que o evento de passar o mouse atravesse o <a> e atinja os botões por trás */
+            pointer-events: none; 
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+        <button onclick="acessarLink()" onmouseover="mudarImagem()" onmouseleave="restaurarImagem()"></button>
+    </div>
+
+    <a id="meuLink" href="ouroboros.html"></a>
+
+    <script>
+        const fundo = document.querySelector('body');
+        const maior = document.querySelector('a');
+        const imagemOriginal = 'url(images/tt1.jpg)';
+
+        function mudarImagem() {
+            const min = 1;
+            const max = 7;
+            const valor = Math.floor(Math.random() * (max - min + 1)) + min;
+
+            maior.style.backgroundImage = `url(images/tt${valor + 1}.jpg)`;
+            fundo.style.backgroundImage = `url(images/tt${valor + 1}.jpg)`;
+        }
+
+        function restaurarImagem() {
+            maior.style.backgroundImage = imagemOriginal;
+            fundo.style.backgroundImage = imagemOriginal;
+        }
+
+        function acessarLink() {
+            window.location.href = maior.getAttribute('href');
+        }
+    </script>
+</body>
+
+</html>

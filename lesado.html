@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ASCII">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LÉSÁ´DÓ</title>
+    <style>
+        /* Ajusta o tamanho base do 'em' dinamicamente conforme a tela */
+        html {
+            font-size: 0.625vw; /* 16px na tela de referência de 2560px */
+        }
+
+        body {
+            overflow: hidden;
+            cursor: wait;
+            background-image: url(images/blue-screen.png);
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        a:link,
+        a:visited {
+            color: #c0c0c0;
+        }
+
+        iframe {
+            width: 400px;
+            height: 300px;
+            position: absolute;
+            left: 30%;
+        }
+
+        .teeth {
+            position: absolute;
+            left: 37%;
+            top: 14em;
+            width: 400px;
+            display: grid;
+            grid-template-columns: 25px 25px 25px 25px 25px;
+            grid-gap: 10px;
+        }
+
+        .teeth img {
+            width: 25px;
+        }
+
+        .loader {
+            width: 50px;
+            aspect-ratio: 1;
+            display: grid;
+            -webkit-mask: conic-gradient(from 15deg, #0000, #000);
+            animation: l26 1s infinite steps(12);
+            position: absolute;
+            top: 10%;
+        }
+
+        .loader,
+        .loader:before,
+        .loader:after {
+            background:
+                radial-gradient(closest-side at 50% 12.5%,
+                    #f5f5f5 96%, #0000) 50% 0/20% 80% repeat-y,
+                radial-gradient(closest-side at 12.5% 50%,
+                    #f5f5f5 96%, #0000) 0 50%/80% 20% repeat-x;
+        }
+
+        .loader:before,
+        .loader:after {
+            content: "";
+            grid-area: 1/1;
+            transform: rotate(30deg);
+        }
+
+        .loader:after {
+            transform: rotate(60deg);
+        }
+
+        @keyframes l26 {
+            100% {
+                transform: rotate(1turn)
+            }
+        }
+
+        .coat {
+            position: relative;
+            left: 28%;
+            top: 20em;
+        }
+
+        /* Container principal da barra */
+        .scroll-bar-container {
+            width: 500px;
+            height: 20px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Bloco invisível apenas para gerar o tamanho do scroll */
+        .dummy-content {
+            width: 1200px;
+            height: 1px;
+            visibility: hidden;
+        }
+
+        .vertical-scroll {
+            height: 200px;
+            width: 20px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            box-sizing: border-box;
+        }
+
+        .vertical-dummy {
+            height: 1200px;
+            width: 1px;
+            visibility: hidden;
+        }
+
+        .forearm {
+            display: flex;
+            position: relative;
+            left: 45%;
+            top: -20em;
+        }
+
+        .alca {
+            position: relative;
+            left: 60%;
+            top: -20em;
+            width: 300px;
+            height: 40px;
+        }
+
+        .cari {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            top: -17em;
+        }
+
+        .maleta {
+            width: 300px;
+            height: 200px;
+            position: absolute;
+            left: 60%;
+            top: 46em;
+        }
+    </style>
+</head>
+
+<body>
+    <br><br>
+
+    <iframe src="about.html" title="About Section"></iframe>
+    <div class="loader" style="left:42%"></div>
+    <div class="loader" style="left:36%;"></div>
+    <div class="teeth" onclick="sounds(this)">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+        <img src="images/tooth.png" alt="">
+    </div>
+    
+    <div class="coat">
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+        <div class="scroll-bar-container"><div class="dummy-content"></div></div>
+    </div>
+
+    <div class="forearm">
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+        <div class="vertical-scroll"><div class="vertical-dummy"></div></div>
+    </div>
+
+    <img src="" alt="" class="alca">
+    <img src="" alt="" class="cari" style="left:58.25%;">
+    <img src="" alt="" class="cari" style="left:46.25%;">
+    <a href="bolsa.html" onclick="abrirJanela(event, this.href)"><img src="" alt="" class="maleta"></a>
+
+    <script>
+        const containers = document.querySelectorAll(".scroll-bar-container");
+        const vcontain = document.querySelectorAll('.vertical-scroll');
+
+        let v1 = 10;
+        let v2 = 14;
+        let direcaoH = 1;
+        let direcaoV = 1;
+
+        function autoScrollHorizontal() {
+            if (containers.length === 0) return;
+            const referencia = containers[0];
+            const maxScrollLeft = Math.ceil(referencia.scrollWidth - referencia.clientWidth);
+
+            containers.forEach(bar => {
+                bar.scrollLeft += v1 * direcaoH;
+            });
+
+            if (referencia.scrollLeft >= maxScrollLeft) {
+                direcaoH = -1;
+            } else if (referencia.scrollLeft <= 0) {
+                direcaoH = 1;
+            }
+
+            requestAnimationFrame(autoScrollHorizontal);
+        }
+        autoScrollHorizontal();
+
+        function autoScrollVertical() {
+            if (vcontain.length === 0) return;
+            const referencia = vcontain[0];
+            const maxScrollTop = Math.ceil(referencia.scrollHeight - referencia.clientHeight);
+
+            vcontain.forEach(bar => {
+                bar.scrollTop += v2 * direcaoV;
+            });
+
+            if (referencia.scrollTop >= maxScrollTop) {
+                direcaoV = -1;
+            } else if (referencia.scrollTop <= 0) {
+                direcaoV = 1;
+            }
+
+            requestAnimationFrame(autoScrollVertical);
+        }
+        autoScrollVertical();
+
+        function sounds(elementoClicado) {
+            const efeitoSonoro = new Audio('sounds/erro.mp3');
+            efeitoSonoro.play();
+        }
+
+        function abrirJanela(evento, url) {
+            evento.preventDefault();
+            window.open(url, 'NomeDaJanela', 'width=600,height=400,top=600,left=1400');
+        }
+    </script>
+</body>
+
+</html>

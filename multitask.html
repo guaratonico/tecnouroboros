@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALL RIGHTS RESERVED</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      width: 100vw;
+      background-color: red;
+      color: #f8fafc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      /* Evita barras de rolagem na página principal */
+    }
+
+    /* Container Principal - Ocupa toda a tela */
+    .app-container {
+      display: flex;
+      align-items: stretch;
+      /* Estica todos os filhos verticalmente */
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Textboxes Laterais - Preenchem todo o espaço sobrando */
+    .textbox {
+      flex: 1;
+      /* Ocupa proporcionalmente o espaço vago à esquerda e direita */
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .textbox textarea {
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: #cbd5e1;
+      padding: 16px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+    }
+
+
+    /* Envolto 9:16 Central */
+    .viewport-9-16-wrapper {
+      height: 100%;
+      /* Força a proporção 9:16 mantendo a altura total da tela */
+      aspect-ratio: 9 / 16;
+      flex-shrink: 0;
+      /* Impede a janela central de ser esmagada */
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 12px solid transparent;
+      border-image: url(images/tela/star.gif) 30 round;
+      background-color: #000;
+    }
+
+    /* Link Bloqueado por Padrão */
+    .secret-link {
+      pointer-events: none;
+      cursor: default;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Libera o clique no link */
+    .secret-link.active {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    /* Imagem de Fundo Completa */
+    .secret-background {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    /* Grid das Repartições */
+    .grid-mask-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      z-index: 2;
+    }
+
+    /* Quando revelado 100%, libera cliques do mouse no grid para o link abaixo */
+    .grid-mask-container.unlocked {
+      pointer-events: none;
+    }
+
+    /* Metade Superior Dividida Verticalmente */
+    .top-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Repartição Individual */
+    .partition {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      transition: opacity 0.6s ease, transform 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .partition:hover {
+      filter: brightness(1.1);
+    }
+
+    /* Classe aplicada ao clicar para remover a repartição */
+    .partition.revealed {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+
+    /* Indicador visual de reinício/status */
+    .reset-btn {
+      position: absolute;
+    bottom: 51px;
+    width: 4rem;
+    height: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    border: 5px solid black;
+    padding: 8px 16px;
+    border-radius: 51px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s;
+    }
+
+    .reset-btn:hover {
+      background: #c0c0c0;
+    }
+
+    .panoptico img {
+      position: absolute;
+    }
+
+    .imagens:nth-child(1) {
+      width: 82em;
+      left: 5em;
+    }
+
+    .imagens:nth-child(2) {
+      width: 43em;
+      left: -9em;
+      top: 38em;
+    }
+
+    .imagens:nth-child(3) {
+      width: 100em;
+      left: 75em;
+    }
+
+    .imagens:nth-child(4) {
+      width: 150em;
+      left: 27em;
+      top: 33em;
+    }
+
+    .menu{
+      display: grid;
+    position: absolute;
+    z-index: 3;
+    top: 38rem;
+    right: 59rem;
+    gap: 40px;
+    justify-items: center;
+    }
+
+    .menu img:nth-child(1)
+    {
+      background: white;
+    }
+
+    .menu img:nth-child(3)
+    {
+      transform: scaleX(-1);
+transform: rotate(270deg);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container">
+
+    <div class="menu">
+  <img src="images/tela/heart.gif" alt=""><img src="images/tela/comment.gif" alt=""><img src="images/tela/share.gif" alt="">
+</div>
+
+    <div class="panoptico">
+      <img src="images/tela/pa.png" alt="" class="imagens"><img src="images/tela/pa1.png" alt="" class="imagens"><img
+        src="images/tela/pa2.png" alt="" class="imagens"><img src="images/tela/pa3.png" alt="" class="imagens">
+    </div>
+    <!-- Moldura 9:16 Central -->
+    <div class="viewport-9-16-wrapper">
+
+      <!-- Imagem Secreta que é Revelada por Trás -->
+      <a id="secret-link" href="reproduzir.html" class="secret-link">
+        <img id="bg-secret" class="secret-background"
+          src="images/family-photo.png"
+          alt="Fundo Secreto" />
+      </a>
+
+      <!-- As 3 Repartições com as Imagens -->
+      <div id="grid-container" class="grid-mask-container">
+
+        <!-- Parte Superior (Split Vertical) -->
+        <div class="top-split">
+          <div id="part-1" class="partition" title="Clique para apagar esta parte"></div>
+          <div id="part-2" class="partition" title="Clique para apagar esta parte"></div>
+        </div>
+
+        <!-- Parte Inferior -->
+        <div id="part-3" class="partition" title="Clique para apagar esta parte"></div>
+
+      </div>
+
+      <button class="reset-btn" onclick="resetPartitions()"></button>
+    </div>
+
+  </div>
+
+  <script>
+    const imagePool = [
+      "images/tela/1.gif",
+      "images/tela/2.gif",
+      "images/tela/3.gif",
+      "images/tela/4.gif",
+      "images/tela/5.gif",
+      "images/tela/6.gif",
+      "images/tela/7.gif",
+      "images/tela/8.gif",
+      "images/tela/9.gif",
+      "images/tela/10.gif",
+      "images/tela/11.gif",
+      "images/tela/12.gif",
+      "images/tela/13.gif",
+      "images/tela/14.gif",
+      "images/tela/15.gif",
+      "images/tela/16.gif",
+      "images/tela/17.gif",
+      "images/tela/18.gif",
+      "images/tela/19.gif",
+      "images/tela/20.gif",
+      "images/tela/21.gif",
+      "images/tela/22.gif",
+      "images/tela/23.gif",
+      "images/tela/24.gif",
+      "images/tela/25.gif",
+      "images/tela/26.gif",
+      "images/tela/27.gif",
+      "images/tela/28.gif",
+      "images/tela/29.gif",
+      "images/tela/30.gif",
+      "images/tela/31.gif",
+      "images/tela/32.gif",
+      "images/tela/33.gif",
+      "images/tela/34.gif",
+      "images/tela/35.gif",
+      "images/tela/36.gif",
+      "images/tela/37.gif",
+      "images/tela/38.gif",
+      "images/tela/39.gif",
+      "images/tela/40.gif",
+      "images/tela/41.gif",
+      "images/tela/42.gif",
+      "images/tela/43.gif",
+      "images/tela/44.gif",
+      "images/tela/45.gif",
+      "images/tela/46.gif",
+      "images/tela/47.gif",
+      "images/tela/48.gif",
+      "images/tela/49.gif",
+      "images/tela/50.gif",
+      "images/tela/51.gif",
+      "images/tela/52.gif",
+      "images/tela/53.gif",
+      "images/tela/54.gif",
+      "images/tela/55.gif",
+      "images/tela/56.gif",
+      "images/tela/57.gif",
+      "images/tela/58.gif",
+      "images/tela/59.gif",
+      "images/tela/60.gif"
+    ];
+
+    const partitions = document.querySelectorAll('.partition');
+    const secretLink = document.getElementById('secret-link');
+    const gridContainer = document.getElementById('grid-container');
+
+    function checkUnlockCondition() {
+      const revealedCount = document.querySelectorAll('.partition.revealed').length;
+      if (revealedCount === partitions.length) {
+        secretLink.classList.add('active');
+        gridContainer.classList.add('unlocked');
+      } else {
+        secretLink.classList.remove('active');
+        gridContainer.classList.remove('unlocked');
+      }
+    }
+
+    partitions.forEach((partition, index) => {
+      setBgImage(partition, imagePool[index]);
+
+      partition.addEventListener('mouseenter', () => {
+        const randomIndex = Math.floor(Math.random() * imagePool.length);
+        setBgImage(partition, imagePool[randomIndex]);
+      });
+
+      partition.addEventListener('click', () => {
+        partition.classList.add('revealed');
+        checkUnlockCondition();
+      });
+    });
+
+    function setBgImage(element, url) {
+      element.style.backgroundImage = `url('${url}')`;
+    }
+
+    function resetPartitions() {
+      partitions.forEach(partition => {
+        partition.classList.remove('revealed');
+      });
+      checkUnlockCondition();
+    }
+  </script>
+</body>
+
+</html>

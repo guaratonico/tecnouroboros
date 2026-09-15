@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproduzir</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-image: url(images/campo.png);
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: auto;
+    }
+
+    #workspace {
+      position: relative;
+      min-width: 100vw;
+      min-height: 100vh;
+      width: max-content;
+      height: max-content;
+      padding: 50px;
+    }
+
+    #connections-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .connection-line {
+      stroke: #89b4fa;
+      stroke-width: 2.5;
+      fill: none;
+      transition: d 0.3s ease-in-out;
+    }
+
+    .node {
+      position: absolute;
+      width: 32px;
+      height: 31px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      user-select: none;
+    }
+
+    .garden {
+      display: grid;
+    grid-template-columns: auto auto;
+    width: 300px;
+    position: relative;
+    top: 55em;
+    }
+
+    #im1 {
+      position: absolute;
+    top: 11em;
+    left: 1em;
+    }
+
+    #im2 {
+          position: absolute;
+    left: 10em;
+    top: 8em;
+    }
+
+    #im3 {
+      position: absolute;
+    left: 4em;
+    top: 6em;
+    z-index: -1;
+    }
+
+    #im4 {
+      position: absolute;
+    top: 10em;
+    left: 6em;
+    z-index: -1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="workspace">
+    <svg id="connections-layer"></svg>
+    <div id="root-node" class="node"></div>
+    <div class="garden">
+      <a href="lesado.html"><img src="images/tree.gif" alt="" id="im1"><img src="images/tree.gif" alt="" id="im2"><img src="images/tree.gif"
+        alt="" id="im3"><img src="images/man.gif" alt="" id="im4"></a>
+    </div>
+  </div>
+
+  <script>
+    const workspace = document.getElementById('workspace');
+    const svgLayer = document.getElementById('connections-layer');
+
+    // Mantenha o NODE_WIDTH e NODE_HEIGHT coerentes com o CSS para a linha tocar na borda
+    const NODE_WIDTH = 32;
+    const NODE_HEIGHT = 31;
+    const DISTANCE_X = 120; // Espaçamento entre os níveis
+    const NODE_GAP_Y = 20;  // Espaçamento mínimo vertical entre nós
+
+    // Array com as imagens possíveis
+    const nodeImages = [
+      'images/pc.gif',
+      'images/pc2.gif',
+      'images/pc1.gif'
+    ];
+
+    function getRandomImage() {
+      const index = Math.floor(Math.random() * nodeImages.length);
+      return nodeImages[index];
+    }
+
+    let nodeCounter = 1;
+
+    // Elemento Raiz
+    const rootElement = document.getElementById('root-node');
+    rootElement.style.backgroundImage = `url('${getRandomImage()}')`;
+
+    const treeData = {
+      id: 1,
+      element: rootElement,
+      children: [],
+      x: 50,
+      y: 0
+    };
+
+    treeData.element.setAttribute('data-id', 1);
+    treeData.element.addEventListener('click', function () {
+      expandNode(treeData);
+    });
+
+    function countLeaves(node) {
+      if (node.children.length === 0) return 1;
+      return node.children.reduce((sum, child) => sum + countLeaves(child), 0);
+    }
+
+    function calculatePositions(node, depth = 0, startY = 50) {
+      node.x = 50 + depth * (NODE_WIDTH + DISTANCE_X);
+
+      if (node.children.length === 0) {
+        node.y = startY + (NODE_HEIGHT / 2);
+        return startY + NODE_HEIGHT + NODE_GAP_Y;
+      } else {
+        let currentY = startY;
+        let childCenterYs = [];
+
+        node.children.forEach(child => {
+          const nextY = calculatePositions(child, depth + 1, currentY);
+          childCenterYs.push(child.y);
+          currentY = nextY;
+        });
+
+        node.y = (childCenterYs[0] + childCenterYs[childCenterYs.length - 1]) / 2;
+        return currentY;
+      }
+    }
+
+    function updateLayout() {
+      calculatePositions(treeData);
+
+      const totalHeight = getTreeHeight(treeData);
+      const viewportCenter = window.innerHeight / 2;
+      const offsetY = Math.max(0, viewportCenter - (totalHeight / 2) - 50);
+
+      applyPositions(treeData, offsetY);
+
+      svgLayer.innerHTML = '';
+      drawAllConnections(treeData);
+
+      svgLayer.style.width = `${workspace.scrollWidth}px`;
+      svgLayer.style.height = `${workspace.scrollHeight}px`;
+    }
+
+    function getTreeHeight(node) {
+      return countLeaves(node) * (NODE_HEIGHT + NODE_GAP_Y);
+    }
+
+    function applyPositions(node, offsetY) {
+      node.element.style.left = `${node.x}px`;
+      node.element.style.top = `${node.y + offsetY - (NODE_HEIGHT / 2)}px`;
+
+      node.actualY = node.y + offsetY;
+
+      node.children.forEach(child => applyPositions(child, offsetY));
+    }
+
+    function expandNode(nodeData) {
+      if (nodeData.children.length > 0) return;
+
+      for (let i = 0; i < 2; i++) {
+        nodeCounter++;
+        const childElem = document.createElement('div');
+        childElem.className = 'node';
+
+        // Atribui uma imagem aleatória para o novo nó
+        childElem.style.backgroundImage = `url('${getRandomImage()}')`;
+
+        workspace.appendChild(childElem);
+
+        const newChildNode = {
+          id: nodeCounter,
+          element: childElem,
+          children: [],
+          x: 0,
+          y: 0
+        };
+
+        childElem.addEventListener('click', function () {
+          expandNode(newChildNode);
+        });
+
+        nodeData.children.push(newChildNode);
+      }
+
+      updateLayout();
+    }
+
+    function drawAllConnections(node) {
+      node.children.forEach(child => {
+        drawCurvedConnection(node, child);
+        drawAllConnections(child);
+      });
+    }
+
+    function drawCurvedConnection(parent, child) {
+      // Conecta a borda direita do nó pai à borda esquerda do nó filho
+      const x1 = parent.x + NODE_WIDTH;
+      const y1 = parent.actualY;
+
+      const x2 = child.x;
+      const y2 = child.actualY;
+
+      const deltaX = (x2 - x1) / 2;
+      const controlX1 = x1 + deltaX;
+      const controlX2 = x2 - deltaX;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const d = `M ${x1} ${y1} C ${controlX1} ${y1}, ${controlX2} ${y2}, ${x2} ${y2}`;
+
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'connection-line');
+
+      svgLayer.appendChild(path);
+    }
+
+    updateLayout();
+  </script>
+</body>
+
+</html>

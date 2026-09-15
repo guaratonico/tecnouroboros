@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECNOUROBOROS</title>
+    <style>
+        body{
+            display: flex;
+            background-color: black;
+            
+
+        }
+        img{
+            padding-top:5rem;
+            width:42%;
+            margin: auto;
+        }
+
+        .tecno p{
+            color:red;
+            font-family:'Times New Roman', Times, serif;
+            font-size:8rem;
+            position: absolute;
+            font-style: italic;
+        }
+        .tecno p:nth-child(1){
+            top:27rem;
+            left:50rem;
+        }
+        .tecno p:nth-child(2){
+            top: 27rem;
+    left: 97rem;
+    z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <img src="images/ouroboros.gif" alt="" id="imagemSorteio">
+    <div class="tecno"><p>TECNOUROB</p>
+    <p>OROS</p></div>
+
+    <script>
+        // 1. Array com a lista de 10 links
+    const links = [
+      "abecedario.html",
+      "begonia-larorum.html",
+      "lesado.html",
+      "multitask.html",
+      "possibilidade.html",
+      "puberdade.html",
+      "reproduzir.html",
+      "tres-por-quatro-na-dezesseis-por-nove.html",
+      "utero-digital.html"
+    ];
+
+    // 2. Função que escolhe um link aleatório e redireciona
+    function redirecionarAleatorio() {
+      // Gera um índice aleatório entre 0 e o tamanho da matriz (links.length - 1)
+      const indiceAleatorio = Math.floor(Math.random() * links.length);
+      
+      // Pega o URL sorteado
+      const linkSorteado = links[indiceAleatorio];
+
+      // Redireciona a página atual para o link sorteado
+      window.location.href = linkSorteado;
+    }
+
+    // 3. Adiciona o ouvinte de clique à imagem
+    const imagem = document.getElementById("imagemSorteio");
+    imagem.addEventListener("click", redirecionarAleatorio);
+    </script>
+</body>
+</html>

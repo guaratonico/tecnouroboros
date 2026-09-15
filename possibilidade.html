@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FESTA NO LABIRINTO</title>
+
+  <style>
+    /* =========================================
+       RESET
+    ========================================= */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-image: url(images/base/b.gif);
+      font-family: Arial, sans-serif;
+    }
+
+
+    /* =========================================
+       CANVAS
+
+       A página é MUITO mais alta que a viewport.
+       Você pode aumentar esse valor.
+    ========================================= */
+
+    .canvas {
+      position: relative;
+
+      width: 100%;
+      min-height: 6000px;
+
+      overflow: hidden;
+    }
+
+
+    /* =========================================
+       ITEM
+
+       O tamanho é responsivo.
+    ========================================= */
+
+    .item {
+      position: absolute;
+
+      width: clamp(80px, 9vw, 150px);
+      aspect-ratio: 1 / 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #111;
+
+      border-radius: 8px;
+
+      font-size: clamp(10px, 1vw, 14px);
+
+      transition:
+        transform .3s ease,
+        background-color .3s ease;
+
+      z-index: 1;
+    }
+
+
+    /* =========================================
+       PRIMEIRO BLOCO
+       0 — 1000px
+    ========================================= */
+    .item:nth-child(1) {
+      top: 10rem;
+      left: 7%;
+      transform: rotate(-7deg);
+      transform: scale(4);
+    }
+
+    .item:nth-child(2) {
+      top: 120px;
+      left: 29%;
+      transform: rotate(5deg);
+    }
+
+    .item:nth-child(3) {
+      top: 70px;
+      left: 56%;
+      transform: rotate(-9deg);
+      cursor: pointer;
+    }
+
+    .item:nth-child(4) {
+      top: 180px;
+      left: 79%;
+      transform: rotate(8deg);
+    }
+
+    .item:nth-child(5) {
+      top: 350px;
+      left: 15%;
+      transform: rotate(90deg);
+    }
+
+    .item:nth-child(6) {
+      top: 410px;
+      left: 43%;
+      transform: scale(4);
+    }
+
+    .item:nth-child(7) {
+      top: 360px;
+      left: 68%;
+      transform: scale(10);
+    }
+
+    .item:nth-child(8) {
+      top: 590px;
+      left: 5%;
+      transform: rotate(-10deg);
+    }
+
+    .item:nth-child(9) {
+      top: 650px;
+      left: 31%;
+      transform: rotate(6deg);
+    }
+
+    .item:nth-child(10) {
+      top: 570px;
+      left: 57%;
+      transform: scale(3);
+    }
+
+
+    /* =========================================
+       SEGUNDO BLOCO
+       1000 — 2000px
+    ========================================= */
+
+    .item:nth-child(11) {
+      top: 850px;
+      left: 76%;
+      transform: scale(4);
+    }
+
+    .item:nth-child(12) {
+      top: 950px;
+      left: 18%;
+      transform: rotate(-5deg);
+    }
+
+    .item:nth-child(13) {
+      top: 1050px;
+      left: 47%;
+      transform: rotate(9deg);
+    }
+
+    .item:nth-child(14) {
+      top: 1080px;
+      left: 70%;
+      transform: rotate(-11deg);
+      z-index: -1;
+    }
+
+    .item:nth-child(15) {
+      top: 1250px;
+      left: 7%;
+      transform: scaleX(-1);
+    }
+
+    .item:nth-child(16) {
+      top: 1300px;
+      left: 34%;
+      transform: rotate(-7deg);
+    }
+
+    .item:nth-child(17) {
+      top: 1390px;
+      left: 58%;
+      transform: rotate(12deg);
+    }
+
+    .item:nth-child(18) {
+      top: 1510px;
+      left: 82%;
+      transform: scale(3);
+    }
+
+    .item:nth-child(19) {
+      top: 1580px;
+      left: 20%;
+      transform: rotate(5deg);
+    }
+
+    .item:nth-child(20) {
+      top: 1690px;
+      left: 48%;
+      transform: rotate(-10deg);
+    }
+
+
+    /* =========================================
+       TERCEIRO BLOCO
+       2000 — 3000px
+    ========================================= */
+
+    .item:nth-child(21) {
+      top: 1850px;
+      left: 72%;
+      transform: rotate(7deg);
+    }
+
+    .item:nth-child(22) {
+      top: 1950px;
+      left: 9%;
+      transform: rotate(-12deg);
+    }
+
+    .item:nth-child(23) {
+      top: 2020px;
+      left: 39%;
+      transform: rotate(8deg);
+      animation: jump .5s infinite ease;
+}
+@keyframes jump {
+  0% {
+    transform: scale(1); /* Starting size */
+  }
+  100% {
+    transform: scale(6); /* Ending size (115%) */
+  }
+}
+
+    .item:nth-child(24) {
+      top: 2150px;
+      left: 61%;
+      transform: rotate(-6deg);
+      z-index:3;
+    }
+
+    .item:nth-child(25) {
+      top: 2240px;
+      left: 83%;
+      transform: rotate(11deg);
+    }
+
+    .item:nth-child(26) {
+      top: 2370px;
+      left: 17%;
+      transform: rotate(-9deg);
+    }
+
+    .item:nth-child(27) {
+      top: 2450px;
+      left: 46%;
+      transform: scale(2);
+    }
+
+    .item:nth-child(28) {
+      top: 2540px;
+      transform: scaleY(8);
+      left: 70%;
+    }
+
+    .item:nth-child(29) {
+      top: 2680px;
+      left: 5%;
+      transform: rotate(10deg);
+    }
+
+    .item:nth-child(30) {
+      top: 2770px;
+      left: 32%;
+      transform: rotate(-5deg);
+    }
+
+
+    /* =========================================
+       QUARTO BLOCO
+       3000 — 4000px
+    ========================================= */
+
+    .item:nth-child(31) {
+      top: 2880px;
+      left: 57%;
+      transform: rotate(8deg);
+    }
+
+    .item:nth-child(32) {
+      top: 3020px;
+      left: 79%;
+      transform: rotate(-11deg);
+    }
+
+    .item:nth-child(33) {
+      top: 3110px;
+      left: 12%;
+      transform: scale(6);
+    }
+
+    .item:nth-child(34) {
+      top: 3200px;
+      left: 39%;
+      transform: rotate(-8deg);
+    }
+
+    .item:nth-child(35) {
+      top: 3290px;
+      left: 64%;
+      transform: rotate(12deg);
+    }
+
+    .item:nth-child(36) {
+      top: 3410px;
+      left: 87%;
+      transform: rotate(-6deg);
+    }
+
+    .item:nth-child(37) {
+      top: 3480px;
+      left: 20%;
+      width:fit-content;
+      color: white;
+      transform: rotate(9deg);
+    }
+
+    .item:nth-child(38) {
+      top: 3580px;
+      left: 49%;
+      transform: rotate(-10deg);
+    }
+
+    .item:nth-child(39) {
+      top: 3690px;
+      left: 72%;
+      transform: rotate(5deg);
+    }
+
+    .item:nth-child(40) {
+      top: 3790px;
+      left: 8%;
+      transform: rotate(-8deg);
+    }
+
+
+    /* =========================================
+       QUINTO BLOCO
+       4000 — 5000px
+    ========================================= */
+
+    .item:nth-child(41) {
+      top: 3890px;
+      left: 34%;
+      transform: rotate(11deg);
+    }
+
+    .item:nth-child(42) {
+      top: 3990px;
+      left: 60%;
+      transform: rotate(-7deg);
+    }
+
+    .item:nth-child(43) {
+      top: 4120px;
+      left: 82%;
+      transform: rotate(8deg);
+    }
+
+    .item:nth-child(44) {
+      top: 4210px;
+      left: 12%;
+      transform: scale(4);
+    }
+
+    .item:nth-child(45) {
+      top: 4300px;
+      left: 43%;
+      transform: rotate(6deg);
+    }
+
+    .item:nth-child(46) {
+      top: 4400px;
+      left: 67%;
+      transform: rotate(-9deg);
+    }
+
+    .item:nth-child(47) {
+      top: 4520px;
+      left: 89%;
+      transform: rotate(7deg);
+    }
+
+    .item:nth-child(48) {
+      top: 4600px;
+      left: 20%;
+      transform: rotate(-6deg);
+    }
+
+    .item:nth-child(49) {
+      top: 4710px;
+      left: 51%;
+      transform: rotate(10deg);
+    }
+
+    .item:nth-child(50) {
+      top: 4820px;
+      left: 74%;
+      transform: rotate(-8deg);
+    }
+
+
+    /* =========================================
+       SEXTO BLOCO
+       5000 — 6000px
+    ========================================= */
+
+    .item:nth-child(51) {
+      top: 4930px;
+      left: 7%;
+      transform: rotate(5deg);
+    }
+
+    .item:nth-child(52) {
+      top: 5050px;
+      left: 32%;
+      transform: rotate(-11deg);
+      transform: scaleX(3);
+    }
+
+    .item:nth-child(53) {
+      top: 5150px;
+      left: 58%;
+      transform: scale(2);
+    }
+
+    .item:nth-child(54) {
+      top: 5260px;
+      left: 83%;
+      transform: scale(2);
+    }
+
+    .item:nth-child(55) {
+      top: 5380px;
+      left: 15%;
+      transform: scale(2);
+      z-index: -1;
+    }
+
+    .item:nth-child(56) {
+      top: 5470px;
+      left: 43%;
+      transform: rotate(-9deg);
+    }
+
+    .item:nth-child(57) {
+      top: 5570px;
+      left: 69%;
+      transform: rotate(7deg);
+    }
+
+    .item:nth-child(58) {
+      top: 5680px;
+      left: 91%;
+      transform: rotate(-12deg);
+    }
+
+    .item:nth-child(59) {
+      top: 5780px;
+      left: 27%;
+      transform: rotate(6deg);
+      animation: pulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1); /* Starting size */
+  }
+  100% {
+    transform: scale(30); /* Ending size (115%) */
+  }
+}
+    
+
+    .item:nth-child(60) {
+      top: 5870px;
+      left: 58%;
+    }
+
+
+    /* =========================================
+       TABLET
+    ========================================= */
+
+    @media (max-width: 768px) {
+
+      .canvas {
+        min-height: 7000px;
+      }
+
+      .item {
+        width: clamp(65px, 12vw, 100px);
+      }
+
+    }
+
+
+    /* =========================================
+       CELULAR
+    ========================================= */
+
+    @media (max-width: 480px) {
+
+      .canvas {
+        min-height: 9000px;
+      }
+
+      .item {
+        width: clamp(50px, 16vw, 80px);
+        border-radius: 6px;
+      }
+
+      /*
+        Redistribuição horizontal para celular.
+        Mantemos os elementos afastados.
+      */
+
+      .item:nth-child(odd) {
+        left: 8%;
+      }
+
+      .item:nth-child(even) {
+        left: 65%;
+      }
+
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <audio src="sounds/internet-discada.mp3" id="som1"></audio>
+
+  <main class="canvas">
+
+    <div class="item"><img src="images/base/7.gif" alt=""></div>
+    <div class="item"><img src="images/base/32.gif" alt=""></div>
+    <div class="item"><img src="images/base/20.gif" alt="" onclick="som1()"></div>
+    <div class="item"> <span
+        style='font-family: "Lucida Console";line-height: 34px;font-size: 34px;display: inline-block;'>&nbsp;|\/\/\/|&nbsp;&nbsp;<br>&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;<br>&nbsp;|&nbsp;(o)(o)&nbsp;&nbsp;<br>&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_)&nbsp;<br>&nbsp;&nbsp;|&nbsp;&nbsp;___|&nbsp;&nbsp;<br>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;/____\&nbsp;&nbsp;&nbsp;&nbsp;<br>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\</span>
+    </div>
+    <div class="item"><img src="images/base/31.gif" alt=""></div>
+    <div class="item"><img src="images/base/9.gif" alt=""></div>
+    <div class="item"><img src="images/base/5.gif" alt=""></div>
+    <div class="item"><img src="images/base/12.gif" alt=""></div>
+    <div class="item"><img src="images/base/22.gif" alt=""></div>
+    <div class="item"><img src="images/base/2.gif" alt=""></div>
+
+    <div class="item"><img src="images/base/35.gif" alt=""></div>
+    <div class="item"><img src="images/base/11.gif" alt=""></div>
+    <div class="item"><img src="images/base/13.gif" alt=""></div>
+    <div class="item"><img src="images/base/30.gif" alt=""></div>
+    <div class="item"><img src="images/base/5.gif" alt=""></div>
+    <div class="item"><img src="images/base/28.gif" alt=""></div>
+    <div class="item"><img src="images/base/35.gif" alt=""></div>
+    <div class="item"><img src="images/base/35.gif" alt=""></div>
+    <div class="item"><img src="images/base/28.gif" alt=""></div>
+    <div class="item"><img src="images/base/38.gif" alt=""></div>
+
+    <div class="item"><img src="images/base/35.gif" alt=""></div>
+    <div class="item"><img src="images/base/5.gif" alt=""></div>
+    <div class="item"><img src="images/base/37.gif" alt=""></div>
+    <div class="item"><img src="images/base/19.gif" alt=""></div>
+    <div class="item"><img src="images/base/18.gif" alt=""></div>
+    <div class="item">26</div>
+    <div class="item"><img src="images/base/31.gif" alt=""></div>
+    <div class="item"><img src="images/base/23.gif" alt=""></div>
+    <div class="item"><img src="images/base/21.gif" alt=""></div>
+    <div class="item"><img src="images/base/15.gif" alt=""></div>
+
+    <div class="item"><img src="images/base/34.gif" alt=""></div>
+    <div class="item"><img src="images/base/34.gif" alt=""></div>
+    <div class="item"><img src="images/base/16.gif" alt=""></div>
+    <div class="item"><img src="images/base/15.gif" alt=""></div>
+    <div class="item"><img src="images/base/15.gif" alt=""></div>
+    <div class="item"><img src="images/base/11.gif" alt=""></div>
+    <div class="item"><p><span style="font-family: 'Lucida Console'; color: white; line-height: 50px; font-size: 50px; display: inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.-"""-.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.-"""-.-`.-.-.&lt;&nbsp;&nbsp;_<br />&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_,-\&nbsp;O_O-_/&nbsp;)&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;,&nbsp;&nbsp;`&nbsp;&nbsp;&nbsp;.&nbsp;`|<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'-..-|&nbsp;\-.,__~&nbsp;~&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\&nbsp;`-.__/&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;`-.__.-\`-._&nbsp;&nbsp;&nbsp;&nbsp;,",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;/|&nbsp;&nbsp;&nbsp;&nbsp;___\-._`-.;&nbsp;&nbsp;,&nbsp;.----.&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;(&nbsp;|.-"`&nbsp;&nbsp;&nbsp;`'\&nbsp;'-(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-.---'&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\&nbsp;\/&nbsp;&nbsp;&nbsp;&nbsp;{}{}&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;\.__.-'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;__`;-;'__`)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`//'`&nbsp;&nbsp;&nbsp;`||`<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||<br />&nbsp;&nbsp;.-"-._,(__)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.(__).-""-.<br />&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\<br />&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/<br />&nbsp;&nbsp;`'-------`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`--------'`</span></p></div>
+    <div class="item" style="z-index: -1;"><img src="images/base/3.gif" alt=""></div>
+    <div class="item"><img src="images/base/11.gif" alt=""></div>
+    <div class="item"><img src="images/base/14.gif" alt=""></div>
+
+    <div class="item"><img src="images/base/36.gif" alt=""></div>
+    <div class="item"><iframe width="160" height="90" src="https://www.youtube.com/embed/-RFunvF0mDw?list=PLCpa-mlJTOEI" referrerPolicy="strict-origin-when-cross-origin" title="nobody here" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <div class="item"><img src="images/base/39.gif" alt=""></div>
+    <div class="item"><img src="images/base/16.gif" alt=""></div>
+    <div class="item"><img src="images/base/6.gif" alt=""></div>
+    <div class="item"><img src="images/base/39.gif" alt=""></div>
+    <div class="item"><img src="images/base/39.gif" alt=""></div>
+    <div class="item"><img src="images/base/11.gif" alt=""></div>
+    <div class="item"><img src="images/base/31.gif" alt=""></div>
+    <div class="item"><img src="images/base/17.gif" alt=""></div>
+
+    <div class="item"><img src="images/base/10.gif" alt=""></div>
+    <div class="item"><a href="puberdade.html"><img src="images/roda/cel-old-5.png" alt=""></a></div>
+    <div class="item"><img src="images/base/31.gif" alt=""></div>
+    <div class="item"><img src="images/base/27.gif" alt=""></div>
+    <div class="item"><img src="images/base/33.gif" alt=""></div>
+    <div class="item"><img src="images/base/8.gif" alt=""></div>
+    <div class="item"><img src="images/base/31.gif" alt=""></div>
+    <div class="item"><img src="images/base/35.gif" alt=""></div>
+    <div class="item"><img src="images/base/1.gif" alt=""></div>
+    <div class="item"><img src="images/base/25.gif" alt=""></div>
+
+  </main>
+
+  <script>
+    const audio1 = document.getElementById("som1");
+    function som1() {
+      audio1.play().catch(error => {
+        console.log("O navegador bloqueou o áudio inicialmente:", error);
+      });
+    }
+  </script>
+</body>
+
+</html>
